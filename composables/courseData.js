@@ -11,7 +11,7 @@ export default {
                     slug:'1-introduction-to-typescript-with-vue-js-3',
                     number:1,
                     downloadUrl:'',
-                    videoId:821101511,
+                    videoId:'KBD0j9Tu5GA',
                     text: ' Vue  is a JavaScript framework for building user interfaces. It builds on top of standard HTML, CSS, and JavaScript and provides a declarative and component-based programming model that helps you efficiently develop user inte',
                 },
                 {

@@ -2,8 +2,7 @@
 <template>
    <iframe width="560"
    height="315"
-   
-   :src="`https:/player.vimeo.com/${props.videoId}`" 
+   :src="`https://www.youtube.com/embed/${props.videoId}`" 
    title="Video player"
    frameborder="0"
    allow="accelerometer; autoplay; clipboard-write;"
