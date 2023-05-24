@@ -1,5 +1,4 @@
 <template>
-    <div class="p-12 bg-gray-100 w-full min-h-screen flex flex-col items-center text-xl">
         <div class="prose mb-12">
             <h1>
                 <span class="font-medium font-bold text-3xl">Course:
@@ -19,7 +18,7 @@
                   v-for="(lesson, index) in chapter.lessons"
                   :key="lesson.slug"
                   class="flex flex-row space-x-1 no-underline prose-sm font-normal"
-                  :to="`/course/chapter/${chapter.slug}/lesson/${lesson.slug}`"
+                  :to="lesson.path"
                   
                   >
                   <span class="text-gray-500">{{ index + 1 }}.</span>
@@ -31,10 +30,12 @@
               <NuxtPage/>
             </div>
         </div>
-    </div>
 </template> 
 <script setup>
 const { chapters } = useCourse();
+definePageMeta({
+    layout:'custom',
+});
 </script>
 
 <style scoped>
