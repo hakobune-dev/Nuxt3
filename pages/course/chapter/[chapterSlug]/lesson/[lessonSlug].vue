@@ -22,32 +22,67 @@
     
     <LessonCompleteButton
       :model-value="isLessonComplete"
-      @update:model-value="toggleComplete"
+      @update:model-value="throw createError('Could not Update');"
     />
 </div>
    
 </template>
 
-<script setup >
+
+<script setup>
 const course = useCourse();
 const route = useRoute();
-const chapter = computed(()=>{
-    return course.chapters.find(
-        (chapter) => chapter.slug === route.params.chapterSlug
+
+definePageMeta({
+  validate({ params }) {
+    const course = useCourse();
+
+    const chapter = course.chapters.find(
+      (chapter) => chapter.slug === params.chapterSlug
     );
-});
-const lesson = computed(()=>{
-    return chapter.value?.lessons.find(
-        (lesson) => lesson.slug === route.params.lessonSlug
+
+    if (!chapter) {
+      return createError({
+        statusCode: 404,
+        message: 'Chapter not found',
+      });
+    }
+
+    const lesson = chapter.lessons.find(
+      (lesson) => lesson.slug === params.lessonSlug
     );
+
+    if (!lesson) {
+      return createError({
+        statusCode: 404,
+        message: 'Lesson not found',
+      });
+    }
+
+    return true;
+  },
 });
-const title =computed(()=> {
-    return `${lesson.value.title} - ${course.title}`;
+
+const chapter = computed(() => {
+  return course.chapters.find(
+    (chapter) => chapter.slug === route.params.chapterSlug
+  );
+});
+
+const lesson = computed(() => {
+  return chapter.value.lessons.find(
+    (lesson) => lesson.slug === route.params.lessonSlug
+  );
+});
+
+const title = computed(() => {
+  return `${lesson.value.title} - ${course.title}`;
 });
 useHead({
-    title,
+  title,
 });
-const progress = useLocalStorage('progress',[]);
+
+const progress = useLocalStorage('progress', []);
 
 const isLessonComplete = computed(() => {
   if (!progress.value[chapter.value.number - 1]) {
