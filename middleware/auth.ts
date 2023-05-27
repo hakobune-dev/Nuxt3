@@ -1,3 +1,7 @@
 export default defineNuxtRouteMiddleware((to,from)=>{
-console.log("hello from middleware")
-});
+if (to.params.chapterSlug ==='1-chapter-1'){
+    return;
+  }
+  return navigateTo('/login');
+}
+);

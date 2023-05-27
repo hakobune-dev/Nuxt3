@@ -1,8 +1,9 @@
 <template>
+    <div>
         <div class="prose mb-12">
             <h1>
                 <span class="font-medium font-bold text-3xl">Course:
-                    <span class="font-bold">Mastering Nuxt</span>
+                    <span class="font-bold">{{ title }}</span>
                 </span>
             </h1>
         </div>
@@ -52,9 +53,10 @@
             </NuxtErrorBoundary>
             </div>
         </div>
+    </div>
 </template> 
 <script setup>
-const { chapters } = useCourse();
+const { chapters , title} = useCourse();
 
 const resetError = async (error) => {
   await navigateTo(
